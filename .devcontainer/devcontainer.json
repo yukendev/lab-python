@@ -1,7 +1,10 @@
 {
 	"name": "python remote development",
 	// Dockerfileでイメージ・コンテナを作成
-	"dockerFile": "Dockerfile",
+	"dockerComposeFile": "compose.yml",
+    "service": "app",
+    "workspaceFolder": "/app",
+ 	// "dockerFile": "Dockerfile",
 	// リモート先のVS Codeにインストールする拡張機能
 	"extensions": [
 		"ms-python.python"
