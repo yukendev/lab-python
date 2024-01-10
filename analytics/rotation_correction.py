@@ -1,7 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
-def rotation_correction(file_name, data):
+def rotation_correction(file_name):
+    file_path = "./data/" + str(file_name)
+    # data = pd.read_csv(file_path, usecols=[2, 6],  header=None, names=['x', 'y'])
+    # txtファイルからデータを読み込む
+    data = np.loadtxt(file_path, usecols=(2, 6))
+    
     # 重心座標の計算
     center_x = np.mean(data[:, 0])
     center_y = np.mean(data[:, 1])
@@ -20,11 +26,16 @@ def rotation_correction(file_name, data):
     # 元の姿勢
     plt.subplot(1, 2, 1)
     plt.scatter(data[:, 0], data[:, 1], label='Original Position')
-    plt.scatter(data[0, 0], data[0, 1], color='r', marker='o', label='Initial Position (Red Dot)')
+    # plt.scatter(data[0, 0], data[0, 1], color='r', marker='o', label='Initial Position (Red Dot)')
     plt.title('Original Position')
     plt.xlabel('X')
     plt.ylabel('Y')
     plt.legend()
+
+    # グラフの目盛範囲設定
+    # plt.xlim([-100, 100])
+    # plt.ylim([-100, 100])
+
 
     # 補正後の姿勢
     plt.subplot(1, 2, 2)
@@ -35,4 +46,14 @@ def rotation_correction(file_name, data):
     plt.ylabel('Y')
     plt.legend()
 
-    plt.savefig("./result/" + file_name + "_rotation_correction.png")
+    # グラフの目盛範囲設定
+    # plt.xlim([-100, 100])
+    # plt.ylim([-100, 100])
+
+    # plt.show()
+
+    output_directory = f'./result/{file_name}/'
+
+    plt.savefig(output_directory + file_name + "_rotation_correction.png")
+
+  

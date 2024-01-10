@@ -1,8 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
-def rotation_radius(file_name, data):
-    # 重心座標の計算
+def rotation_radius(file_name):
+    file_path = "./data/" + str(file_name)
+    data = pd.read_csv(file_path, usecols=[2, 6],  header=None, names=['x', 'y'])
+
+    # # 重心座標の計算
     center_x = np.mean(data[:, 0])
     center_y = np.mean(data[:, 1])
 
@@ -23,13 +27,16 @@ def rotation_radius(file_name, data):
     time = np.arange(0, len(data)) / 12500.0
 
     # グラフの描画
-    plt.figure(figsize=(10, 5))
+    plt.figure(figsize=(20, 5))
     plt.plot(time, rotation_radius, label='Rotation Radius')
     plt.title('Rotation Radius over Time')
     plt.xlabel('Time (seconds)')
     plt.ylabel('Rotation Radius')
     plt.legend()
-    plt.xlim(0, 1)
+    plt.xlim(0, 4)
     plt.grid(True)
-    plt.show()
-    plt.savefig("./result/" + file_name + "_rotation_radius.png")
+    # plt.show()
+
+    output_directory = f'./result/{file_name}/'
+
+    plt.savefig(output_directory + file_name + "_rotation_radius.png")

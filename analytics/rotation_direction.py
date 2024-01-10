@@ -1,7 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
-def rotation_direction(file_name, data):
+def rotation_direction(file_name):
+    file_path = "./data/" + str(file_name)
+    data = pd.read_csv(file_path, usecols=[2, 6],  header=None, names=['x', 'y'])
+
     # 重心座標の計算
     center_x = np.mean(data[:, 0])
     center_y = np.mean(data[:, 1])
@@ -21,5 +25,8 @@ def rotation_direction(file_name, data):
     plt.legend()
     plt.xlim(0, 1)
     plt.grid(True)
-    plt.show()
-    plt.savefig("./result/" + file_name + "_rotation_direction.png")
+    # plt.show()
+
+    output_directory = f'./result/{file_name}/'
+
+    plt.savefig(output_directory + file_name + "_rotation_direction.png")
