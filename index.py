@@ -1,14 +1,11 @@
-# import numpy as np
 from analytics.rotation_radius import rotation_radius
 from analytics.rotation_direction import rotation_direction
 from analytics.rotation_correction import rotation_correction
 from analytics.rotation_animation import rotation_animation
 from analytics.rotation_x import rotation_x
 from analytics.rotation_y import rotation_y
-# from matplotlib.animation import FuncAnimation
-# import matplotlib.pyplot as plt
-import pandas as pd
 import os
+import re
 
 # 処理対象のディレクトリ
 directory_path = "./data/"
@@ -16,14 +13,23 @@ directory_path = "./data/"
 # ディレクトリ内の全てのCSVファイルに対して処理を行う
 for filename in os.listdir(directory_path):
 
-    print(f'処理を実行します: {file_path}')
+    pattern = r'cell_(\d+_\d+_\d+)\.txt'
+    match = re.search(pattern, filename)
 
-    output_directory = f'./result/{filename}/'
-    os.makedirs(output_directory, exist_ok=True)
+    if match:
+        cell_number = match.group(1)
+        output_directory = f'./result/{cell_number}/'
+        os.makedirs(output_directory, exist_ok=True)
 
-    rotation_x(filename)
-    rotation_y(filename)
-    rotation_radius(filename)
-    rotation_direction(filename)
-    rotation_correction(filename)
-    rotation_animation(filename, 100)
+        file_path = f'./data/cell_{cell_number}.txt'
+
+        print(f'処理を実行します: {file_path}')
+
+        rotation_x(cell_number, file_path, output_directory)
+        rotation_y(cell_number, file_path, output_directory)
+        rotation_radius(cell_number, file_path, output_directory)
+        rotation_direction(cell_number, file_path, output_directory)
+        rotation_correction(cell_number, file_path, output_directory)
+        # rotation_animation(cell_number, file_path, output_directory, 100)
+    else:
+        print("ファイル名が正しくありません", file_path)

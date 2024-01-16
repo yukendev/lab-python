@@ -4,7 +4,6 @@ from analytics.rotation_correction import rotation_correction
 from analytics.rotation_animation import rotation_animation
 from analytics.rotation_x import rotation_x
 from analytics.rotation_y import rotation_y
-import pandas as pd
 import os
 
 # 解析対象のcell番号
