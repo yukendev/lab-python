@@ -2,8 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def rotation_x(file_name):
-    file_path = "./data/" + str(file_name)
+def rotation_x(cell_number, file_path, output_directory):
     
     # txtファイルからデータを読み込む
     data = np.loadtxt(file_path, usecols=(2, 6))
@@ -13,13 +12,12 @@ def rotation_x(file_name):
 
     # グラフの描画
     plt.figure(figsize=(20, 5))
-    plt.plot(time, data[:, 0], label='x座標')  # data[:, 0] はx座標の列を表します
-    plt.title("x: " + str(file_name))
+    plt.plot(time, data[:, 0], label='x座標')
+    plt.title("x: " + str(cell_number))
     plt.xlabel('Time (seconds)')
     plt.ylabel('x座標')
     plt.legend()
     plt.grid(True)
     # plt.show()
 
-    output_directory = f'./result/{file_name}/'
-    plt.savefig(output_directory + file_name + "_rotation_x.png")
+    plt.savefig(output_directory + cell_number + "_rotation_x.png")
