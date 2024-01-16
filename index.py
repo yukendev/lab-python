@@ -27,11 +27,11 @@ for filename in os.listdir(directory_path):
 
         print(f'処理を実行します: {file_path}')
 
-        rotation_x(cell_number, file_path, output_directory)
-        rotation_y(cell_number, file_path, output_directory)
-        rotation_radius(cell_number, file_path, output_directory)
-        rotation_direction(cell_number, file_path, output_directory)
-        rotation_correction(cell_number, file_path, output_directory)
+        rotation_x(cell_number, file_path, output_directory, fps)
+        rotation_y(cell_number, file_path, output_directory, fps)
+        rotation_radius(cell_number, file_path, output_directory, fps)
+        rotation_direction(cell_number, file_path, output_directory, fps)
+        rotation_correction(cell_number, file_path, output_directory, fps)
         rotation_animation(cell_number, file_path, output_directory, fps)
     else:
         print("ファイル名が正しくありません", file_path)
