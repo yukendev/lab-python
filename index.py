@@ -10,6 +10,8 @@ import re
 # 処理対象のディレクトリ
 directory_path = "./data/"
 
+fps=12500.0
+
 # ディレクトリ内の全てのCSVファイルに対して処理を行う
 for filename in os.listdir(directory_path):
 
@@ -30,6 +32,6 @@ for filename in os.listdir(directory_path):
         rotation_radius(cell_number, file_path, output_directory)
         rotation_direction(cell_number, file_path, output_directory)
         rotation_correction(cell_number, file_path, output_directory)
-        # rotation_animation(cell_number, file_path, output_directory, 100)
+        rotation_animation(cell_number, file_path, output_directory, fps)
     else:
         print("ファイル名が正しくありません", file_path)

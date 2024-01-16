@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def rotation_direction(cell_number, file_path, output_directory):
+def rotation_direction(cell_number, file_path, output_directory, fps):
 
     # txtファイルからデータを読み込む
     data = np.loadtxt(file_path, usecols=(2, 6))
@@ -14,8 +14,8 @@ def rotation_direction(cell_number, file_path, output_directory):
     # 回転角の計算
     theta = np.arctan2(data[:, 1] - center_y, data[:, 0] - center_x)
 
-    # 時間の計算（1秒あたりのフレーム数は12500fps）
-    time = np.arange(0, len(data)) / 12500.0
+    # 時間の計算
+    time = np.arange(0, len(data)) / fps
 
     # グラフの描画
     plt.figure(figsize=(10, 5))

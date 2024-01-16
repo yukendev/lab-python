@@ -2,13 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def rotation_y(cell_number, file_path, output_directory):
+def rotation_y(cell_number, file_path, output_directory, fps):
 
     # txtファイルからデータを読み込む
     data = np.loadtxt(file_path, usecols=(2, 6))
 
-    # 時間の計算（1秒あたりのフレーム数は12500fps）
-    time = np.arange(0, len(data)) / 12500.0
+    # 時間の計算
+    time = np.arange(0, len(data)) / fps
 
     # グラフの描画
     plt.figure(figsize=(20, 5))

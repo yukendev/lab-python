@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def rotation_correction(cell_number, file_path, output_directory):
+def rotation_correction(cell_number, file_path, output_directory, fps):
 
     # txtファイルからデータを読み込む
     data = np.loadtxt(file_path, usecols=(2, 6))

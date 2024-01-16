@@ -34,7 +34,9 @@ def m_speed_change(path_in, path_out, scale_factor, color_flag):
 
 
 
-def rotation_animation(cell_number, file_path, output_directory, num_points):
+def rotation_animation(cell_number, file_path, output_directory, fps):
+
+    num_points=100 # アニメーションの各フレームで表示するデータの終了インデックス
 
      # txtファイルからデータを読み込む
     data = np.loadtxt(file_path, usecols=(2, 6))
@@ -83,7 +85,6 @@ def rotation_animation(cell_number, file_path, output_directory, num_points):
     sc = []    # フレーム更新の際に前回の点を削除するために用意
 
     # アニメーション作成
-    fps = 1250
     interval = 1 / fps * 1000  # ミリ秒単位に変換
     ani = animation.FuncAnimation(fig, _update_plot, fargs = (fig, line), 
         frames = len(data) - 9, interval = interval, repeat = False)
