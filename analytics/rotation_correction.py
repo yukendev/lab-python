@@ -2,9 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def rotation_correction(file_name):
-    file_path = "./data/" + str(file_name)
-    # data = pd.read_csv(file_path, usecols=[2, 6],  header=None, names=['x', 'y'])
+def rotation_correction(cell_number, file_path, output_directory):
+
     # txtファイルからデータを読み込む
     data = np.loadtxt(file_path, usecols=(2, 6))
     
@@ -52,8 +51,6 @@ def rotation_correction(file_name):
 
     # plt.show()
 
-    output_directory = f'./result/{file_name}/'
-
-    plt.savefig(output_directory + file_name + "_rotation_correction.png")
+    plt.savefig(output_directory + cell_number + "_rotation_correction.png")
 
   
