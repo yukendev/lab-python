@@ -34,13 +34,10 @@ def m_speed_change(path_in, path_out, scale_factor, color_flag):
 
 
 
-def rotation_animation(file_name, num_points):
-    # file_path = "./data/result_" + str(file_name) + ".csv"
-    file_path = "./data/" + str(file_name)
-    data = pd.read_csv(file_path, usecols=[2, 6],  header=None, names=['x', 'y'])
+def rotation_animation(cell_number, file_path, output_directory, num_points):
 
-    # 保存先のディレクトリ
-    output_directory = f'./result/{file_name}/'
+     # txtファイルからデータを読み込む
+    data = np.loadtxt(file_path, usecols=(2, 6))
 
     # グローバルスコープで line を定義
     line = []
@@ -50,8 +47,8 @@ def rotation_animation(file_name, num_points):
         start_index = i  # アニメーションの各フレームで表示するデータの開始インデックス
         end_index = start_index + num_points  # アニメーションの各フレームで表示するデータの終了インデックス
         # データのスライス
-        x_data = data.iloc[start_index:end_index]['x']
-        y_data = data.iloc[start_index:end_index]['y']
+        x_data = data[start_index:end_index, 0]
+        y_data = data[start_index:end_index, 1]
         print('処理中...', i)
 
         # 前回のフレーム内容を一旦削除
@@ -96,12 +93,12 @@ def rotation_animation(file_name, num_points):
 
     # アニメーションを保存
     print('保存開始')
-    output_file = f'{output_directory}{file_name}_animation.mp4'
+    output_file = f'{output_directory}{cell_number}_animation.mp4'
     ani.save(output_file)
     print(f'保存完了: {output_file}')
 
     print('動画を10倍速にします')
-    processed_video_output_file = f'{output_directory}{file_name}_animation_processed.mp4'
+    processed_video_output_file = f'{output_directory}{cell_number}_animation_processed.mp4'
     path_in = output_file       # 元動画のパス
     path_out = processed_video_output_file      # 保存する動画のパス
     scale_factor = 10              # FPSにかけるスケールファクター
