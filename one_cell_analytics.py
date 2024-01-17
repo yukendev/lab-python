@@ -32,5 +32,5 @@ rotation_x(cell_number, file_path, output_directory, fps, int(start_frame), int(
 rotation_y(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
 rotation_radius(cell_number, file_path, output_directory, fps)
 rotation_direction(cell_number, file_path, output_directory, fps)
-rotation_correction(cell_number, file_path, output_directory, fps)
-rotation_animation(cell_number, file_path, output_directory, fps)
+rotation_correction(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
+# rotation_animation(cell_number, file_path, output_directory, fps)
