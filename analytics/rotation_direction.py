@@ -49,9 +49,9 @@ def rotation_direction(cell_number, file_path, output_directory, fps, start_fram
     time = np.arange(start_frame, start_frame + len(extracted_data)) / fps
 
     # グラフの描画
-    plt.figure(figsize=(10, 5))
-    # plt.plot(time[:-1], rotation_angles, label='Rotation Radius')
-    plt.scatter(time[:-(buffer + 1)], rotation_angles, label='Rotation Radius', s = 0.1)
+    plt.figure(figsize=(20, 5))
+    plt.plot(time[:-(buffer + 1)], rotation_angles, label='Rotation Radius', c="red")
+    # plt.scatter(time[:-(buffer + 1)], rotation_angles, label='Rotation Radius', s = 0.1, c="red")
     plt.title('Rotation Radius over Time')
     plt.xlabel('Time (seconds)')
     plt.ylabel('Rotation Radius')
