@@ -6,8 +6,9 @@ from analytics.radius_graph import radius_graph
 from analytics.speed_graph import speed_graph
 
 # 100個の点で円と近似
-fit_points = 500
+fit_points = 100
 
+# from => https://youta-blog.com/angle-and-rotation-direction/#calculate-angle-and-rotation-direction-program
 def get_angle(point_a, point_b, reference_point, is_radian=False):
     # 点Aまたは点Bが基準点と同じ場合、角度は0を返す
     if point_a == reference_point or point_b == reference_point:
@@ -34,7 +35,7 @@ def get_angle(point_a, point_b, reference_point, is_radian=False):
     # 弧度法指定ではない場合、角度を度数法に変換
     return angle if is_radian else np.degrees(angle)
 
-
+# from => https://youta-blog.com/angle-and-rotation-direction/#calculate-angle-and-rotation-direction-program
 def get_rotation_direction(from_point, to_point, reference_point):
     # 始点または終点が基準点と同じ場合、回転方向は定義しない
     if from_point == reference_point or to_point == reference_point:
@@ -51,6 +52,7 @@ def get_rotation_direction(from_point, to_point, reference_point):
     # 外積の符号に応じて角度を調整
     return 'anti-clockwise' if cross_product >= 0 else 'clockwise'
 
+# from => https://youta-blog.com/angle-and-rotation-direction/#calculate-angle-and-rotation-direction-program
 def get_signed_angle(from_point, to_point, reference_point, is_radian=False):
     angle = get_angle(from_point, to_point, reference_point, is_radian)
     rotation_direction = get_rotation_direction(from_point, to_point, reference_point)
@@ -83,7 +85,11 @@ def selected_points_analytics(selected_points, fps):
         x_n1, y_n1 = rotated_x[i + 1], rotated_y[i + 1]
 
 
-        rotation_angle_velocity = get_signed_angle((x_n, y_n), (x_n1, y_n1), (selected_points_x_center, selected_points_y_center), True) / (1 / fps)
+        # n番目の点からn+1番目の点に回転する時の回転角度(rad)
+        rotation_angle = get_angle((x_n, y_n), (x_n1, y_n1), (selected_points_x_center, selected_points_y_center), True)
+
+        # n番目の点からn+1番目の点に回転する時の回転速度(rad/sec)
+        rotation_angle_velocity = rotation_angle / (1 / fps)
 
         rotation_angle_velocity_array.append(rotation_angle_velocity)
 
