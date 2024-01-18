@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from analytics.radius_graph import radius_graph
+from analytics.speed_graph import speed_graph
+
 # 100個の点で円と近似
 fit_points = 500
 
@@ -55,7 +58,7 @@ def get_signed_angle(from_point, to_point, reference_point, is_radian=False):
     return angle if rotation_direction == 'anti-clockwise' else -angle
 
 
-def selected_points_analytics(selected_points):
+def selected_points_analytics(selected_points, fps):
 
     # 抽出された点の中心座標
     selected_points_x_center = np.mean(selected_points[:, 0])
@@ -68,20 +71,25 @@ def selected_points_analytics(selected_points):
     rotated_x = selected_points_x_center + (selected_points[:, 0] - selected_points_x_center) * np.cos(theta) - (selected_points[:, 1] - selected_points_y_center) * np.sin(theta)
     rotated_y = selected_points_y_center + (selected_points[:, 0] - selected_points_x_center) * np.sin(theta) + (selected_points[:, 1] - selected_points_y_center) * np.cos(theta)
 
-    rotation_angle_array = []
+    rotation_angle_velocity_array = []
     # 回転速度の計算
     for i in range(len(selected_points[:, 0])):
         # {fit_points}個の点を円と近似すると、{fit_points-1}個の角度が出てくる
         if i == fit_points - 1:
             break
-        x_n, y_n = selected_points[:, 0][i], selected_points[:, 1][i]
-        x_n1, y_n1 = selected_points[:, 0][i + 1], selected_points[:, 1][i + 1]
+        # x_n, y_n = selected_points[:, 0][i], selected_points[:, 1][i]
+        # x_n1, y_n1 = selected_points[:, 0][i + 1], selected_points[:, 1][i + 1]
+        x_n, y_n = rotated_x[i], rotated_y[i]
+        x_n1, y_n1 = rotated_x[i + 1], rotated_y[i + 1]
 
-        rotation_angle = get_signed_angle((x_n, y_n), (x_n1, y_n1), (selected_points_x_center, selected_points_y_center))
 
-        rotation_angle_array.append(rotation_angle)
+        rotation_angle_velocity = get_signed_angle((x_n, y_n), (x_n1, y_n1), (selected_points_x_center, selected_points_y_center), True) / (1 / fps)
 
-    return np.mean(rotation_angle_array)
+        rotation_angle_velocity_array.append(rotation_angle_velocity)
+
+    rotation_radius_array = np.sqrt((rotated_x - selected_points_x_center)**2 + (rotated_y - selected_points_y_center)**2)
+
+    return np.mean(rotation_angle_velocity_array), np.mean(rotation_radius_array)
 
 
 
@@ -93,7 +101,8 @@ def rotation_fit_circle(cell_number, file_path, output_directory, fps, start_fra
     # データの範囲を抽出
     extracted_data = data[start_frame:end_frame + 1, :]
 
-    rotation_angle_array = []
+    rotation_angle_velocity_array = []
+    rotation_radius_array = []
     for i in range(len(extracted_data[:, 0])):
 
         print('処理中...', i)
@@ -104,25 +113,17 @@ def rotation_fit_circle(cell_number, file_path, output_directory, fps, start_fra
         if len(selected_points) < fit_points:
             break
 
-        # print('選ばれた点の数', len(selected_points), i, i + fit_points)
+        rotation_angle_velocity, rotation_radius = selected_points_analytics(selected_points, fps)
 
-        rotation_angle = selected_points_analytics(selected_points)
-
-        rotation_angle_array.append(rotation_angle)
+        rotation_angle_velocity_array.append(rotation_angle_velocity)
+        rotation_radius_array.append(rotation_radius)
 
 
     # 時間の計算
     time = np.arange(start_frame, start_frame + len(extracted_data)) / fps
 
-    # グラフの描画
-    plt.figure(figsize=(20, 5))
-    plt.plot(time[:-(fit_points - 1)], rotation_angle_array, label='Rotational speed')
-    plt.title(str(cell_number) + f': {fit_points} points fit circle rotational speed')
-    plt.xlabel('Time (seconds)')
-    plt.ylabel('Rotational speed')
-    plt.axhline(0, color='red', linestyle='--', linewidth=2)
-    plt.legend()
-    plt.grid(True)
-    # plt.show()
+    # 回転速度グラフの描画
+    speed_graph(cell_number, output_directory, time, rotation_angle_velocity_array, fit_points)
 
-    plt.savefig(output_directory + cell_number + "_rotation_fit_circle.png")
+    # 回転半径グラフの描画
+    radius_graph(cell_number, output_directory, time, rotation_radius_array, fit_points)
