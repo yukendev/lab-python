@@ -6,7 +6,7 @@ import pandas as pd
 def speed_graph(cell_number, output_directory, time, rotation_angle_velocity_array, fit_points):
 
     # 回転半径グラフの描画
-    plt.figure(figsize=(20, 5))
+    plt.figure(figsize=(30, 5))
     plt.plot(time[:-(fit_points - 1)], rotation_angle_velocity_array, label='Rotational speed')
     plt.title(str(cell_number) + f': {fit_points} points fit circle rotational speed')
     plt.xlabel('Time (seconds)')

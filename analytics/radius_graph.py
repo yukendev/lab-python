@@ -6,7 +6,7 @@ import pandas as pd
 def radius_graph(cell_number, output_directory, time, rotation_radius_array, fit_points):
 
     # 回転半径グラフの描画
-    plt.figure(figsize=(20, 5))
+    plt.figure(figsize=(30, 5))
     plt.plot(time[:-(fit_points - 1)], rotation_radius_array, label='Rotational radius')
     plt.title(str(cell_number) + f': {fit_points} points fit circle rotational radius')
     plt.xlabel('Time (seconds)')
