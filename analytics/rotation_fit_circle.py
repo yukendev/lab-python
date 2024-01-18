@@ -117,7 +117,7 @@ def rotation_fit_circle(cell_number, file_path, output_directory, fps, start_fra
     # グラフの描画
     plt.figure(figsize=(20, 5))
     plt.plot(time[:-(fit_points - 1)], rotation_angle_array, label='Rotational speed')
-    plt.title(str(cell_number) + f'{fit_points} points fit circle rotational speed')
+    plt.title(str(cell_number) + f': {fit_points} points fit circle rotational speed')
     plt.xlabel('Time (seconds)')
     plt.ylabel('Rotational speed')
     plt.axhline(0, color='red', linestyle='--', linewidth=2)

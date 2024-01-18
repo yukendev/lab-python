@@ -15,11 +15,11 @@ def rotation_y(cell_number, file_path, output_directory, fps, start_frame=0, end
 
     # グラフの描画
     plt.figure(figsize=(20, 5))
-    plt.plot(time, extracted_data[:, 1], label='y座標')
-    plt.title("y: " + str(cell_number))
+    plt.plot(time, extracted_data[:, 1])
+    plt.title(str(cell_number) + ": y")
     plt.xlabel('Time (seconds)')
-    plt.ylabel('y座標')
-    plt.legend()
+    plt.ylabel('y')
+    # plt.legend()
     plt.grid(True)
     # plt.show()
 

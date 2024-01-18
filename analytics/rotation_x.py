@@ -15,11 +15,10 @@ def rotation_x(cell_number, file_path, output_directory, fps, start_frame=0, end
 
     # グラフの描画
     plt.figure(figsize=(20, 5))
-    plt.plot(time, extracted_data[:, 0], label='x座標')
-    plt.title("x: " + str(cell_number))
+    plt.plot(time, extracted_data[:, 0])
+    plt.title(str(cell_number) + ": x")
     plt.xlabel('Time (seconds)')
-    plt.ylabel('x座標')
-    plt.legend()
+    plt.ylabel('x')
     plt.grid(True)
     # plt.show()
 

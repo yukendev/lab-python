@@ -50,13 +50,12 @@ def rotation_direction(cell_number, file_path, output_directory, fps, start_fram
 
     # グラフの描画
     plt.figure(figsize=(20, 5))
-    plt.plot(time[:-(buffer + 1)], rotation_angles, label='Rotation Radius', c="red")
+    plt.plot(time[:-(buffer + 1)], rotation_angles, c="red")
     # plt.scatter(time[:-(buffer + 1)], rotation_angles, label='Rotation Radius', s = 0.1, c="red")
-    plt.title('Rotation Radius over Time')
+    plt.title(str(cell_number) + ': Rotation Radius')
     plt.xlabel('Time (seconds)')
     plt.ylabel('Rotation Radius')
-    plt.legend()
-    # plt.xlim(3, 3.1)
+    # plt.legend()
     plt.grid(True)
     # plt.show()
 

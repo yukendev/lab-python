@@ -13,8 +13,8 @@ cell_number="1220_1_5"
 fps=12500.0
 
 # {start_second}秒から{end_second}秒までを解析
-start_second=0.3
-end_second=0.7
+start_second=0.1
+end_second=0.45
 
 # {start_frame}フレームから{end_frame}フレームまでを解析
 start_frame = start_second * fps
@@ -29,7 +29,7 @@ os.makedirs(output_directory, exist_ok=True)
 
 print(f'処理を実行します: {file_path}')
 
-rotation_fit_circle(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
+# rotation_fit_circle(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
 rotation_x(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
 rotation_y(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
 # rotation_radius(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
