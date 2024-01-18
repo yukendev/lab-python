@@ -28,7 +28,7 @@ def rotation_correction(cell_number, file_path, output_directory, fps, start_fra
     # 元の姿勢
     plt.subplot(1, 2, 1)
     plt.scatter(extracted_data[:, 0], extracted_data[:, 1], label='Original Position')
-    # plt.scatter(extracted_data[0, 0], extracted_data[0, 1], color='r', marker='o', label='Initial Position (Red Dot)')
+    plt.scatter(center_x, center_y, color='r', marker='o', label='center')
     plt.title('Original Position')
     plt.xlabel('X')
     plt.ylabel('Y')
@@ -42,7 +42,7 @@ def rotation_correction(cell_number, file_path, output_directory, fps, start_fra
     # 補正後の姿勢
     plt.subplot(1, 2, 2)
     plt.scatter(rotated_x, rotated_y, label='Rotated Position')
-    plt.scatter(rotated_x[0], rotated_y[0], color='r', marker='o', label='Initial Position (Red Dot)')
+    plt.scatter(center_x, center_y, color='r', marker='o', label='center')
     plt.title('Rotated Position')
     plt.xlabel('X')
     plt.ylabel('Y')
