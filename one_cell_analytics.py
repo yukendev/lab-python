@@ -13,8 +13,8 @@ cell_number="1220_1_5"
 fps=12500.0
 
 # {start_second}秒から{end_second}秒までを解析
-start_second=0.1
-end_second=0.45
+start_second=0
+end_second=0.1
 
 # {start_frame}フレームから{end_frame}フレームまでを解析
 start_frame = start_second * fps
@@ -29,10 +29,17 @@ os.makedirs(output_directory, exist_ok=True)
 
 print(f'処理を実行します: {file_path}')
 
-# rotation_fit_circle(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
+# n個の点を円と近似した場合の横軸時間で『回転速度(rad/sec)』と『回転半径』をグラフ出力する関数
+rotation_fit_circle(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
+
+# 横軸『時間(sec)』縦軸『x座標』をグラフ出力する関数
 rotation_x(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
+
+# 横軸『時間(sec)』縦軸『y座標』をグラフ出力する関数
 rotation_y(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
-# rotation_radius(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
+
+# 横軸『時間(sec)』縦軸『回転方向』をグラフ出力する関数
 rotation_direction(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
-# rotation_correction(cell_number, file_path, output_directory, fps, int(start_frame), int(end_frame))
+
+# 重心の回転の様子をアニメーション出力する関数
 # rotation_animation(cell_number, file_path, output_directory, fps)
